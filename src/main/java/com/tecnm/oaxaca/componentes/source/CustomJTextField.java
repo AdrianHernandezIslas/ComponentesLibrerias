@@ -15,12 +15,12 @@ import javax.swing.JTextField;
  */
 public class CustomJTextField extends JTextField implements KeyListener {
 
-
     public static final int ONLY_TEXT = 2;
     public static final int ONLY_NUMBER_FLOAT = 4;//1,10,10.5,0.5,0
     public static final int ONLY_NUMBER_INTEGER = 1;//5,2,10,0
 
     private int typeInput;
+    private boolean havePoint = false;
 
     public CustomJTextField() {
         super();
@@ -49,7 +49,16 @@ public class CustomJTextField extends JTextField implements KeyListener {
                     e.consume();
                 }
                 break;
+            case ONLY_NUMBER_FLOAT:
+                if (!validateFLoat(key)) {
+                    e.consume();
+                }
+                break;
         }
+    }
+
+    public boolean validateFLoat(char key) {
+        return (Character.isDigit(key) || key == '.' && !getText().contains("."));
     }
 
     @Override
